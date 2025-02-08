@@ -1,34 +1,31 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import { useState, useEffect } from 'react'
 
 function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  const [count, setCount] = useState(60)
+  const [bgColor, setBgColor] = useState('#ffffff')
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCount(prev => (prev > 0 ? prev - 1 : 60))
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
+  const changeBackground = () => {
+    const randomColor = `#${Math.floor(Math.random()*16777215).toString(16)}`
+    setBgColor(randomColor)
+  }
 
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
+    <div style={{ backgroundColor: bgColor, minHeight: '100vh', padding: '20px' }}>
       <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
+        <h1>倒计时: {count} 秒</h1>
+        <button onClick={changeBackground} style={{ padding: '10px 20px', marginTop: '20px' }}>
+          更换背景颜色
+        </button>
       </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
-    </>
+    </div>
   )
 }
 
