@@ -112,8 +112,20 @@ function App(): JSX.Element {
 
   const resetTimer = () => {
     setIsRunning(false)
-    setTotalSeconds(0)
-    setTime({ hours: 0, minutes: 0, seconds: 0 })
+    // 从本地存储重新加载设置
+    const savedSettings = localStorage.getItem('timerSettings')
+    if (savedSettings) {
+      const parsedSettings = JSON.parse(savedSettings)
+      const initialTotalSeconds = parsedSettings.hours * 3600 + 
+                                parsedSettings.minutes * 60 + 
+                                parsedSettings.seconds
+      setTotalSeconds(initialTotalSeconds)
+      setTime(secondsToTime(initialTotalSeconds))
+    }
+    // 重置所有提醒状态
+    setHasReminded(false)
+    setIsFlashing(false)
+    setEndFlashing(false)
   }
 
   const changeBackground = () => {
