@@ -32,6 +32,7 @@ function App(): JSX.Element {
     return defaultSettings
   })
   const [isFlashing, setIsFlashing] = useState(false)
+  const [endFlashing, setEndFlashing] = useState(false)
   const [hasReminded, setHasReminded] = useState(false)
 
   useEffect(() => {
@@ -42,18 +43,25 @@ function App(): JSX.Element {
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null
+    let endTimeout: NodeJS.Timeout | null = null
     
     if (isRunning && totalSeconds > 0) {
       interval = setInterval(() => {
         setTotalSeconds(prev => {
           const newSeconds = prev - 1
           
-          // 新增提醒逻辑
+          // 新增结束提醒逻辑
+          if (newSeconds === 0) {
+            setEndFlashing(true)
+            endTimeout = setTimeout(() => setEndFlashing(false), 3000)
+          }
+          
+          // 原有提前提醒逻辑
           const reminderSeconds = settings.reminderMinutes * 60
           if (newSeconds === reminderSeconds && !hasReminded) {
             setIsFlashing(true)
             setHasReminded(true)
-            setTimeout(() => setIsFlashing(false), 3000) // 3秒后停止闪烁
+            setTimeout(() => setIsFlashing(false), 3000)
           }
           
           return newSeconds
@@ -62,11 +70,12 @@ function App(): JSX.Element {
       }, 1000)
     } else if (totalSeconds === 0) {
       setIsRunning(false)
-      setHasReminded(false) // 重置提醒状态
+      setHasReminded(false)
     }
 
     return () => {
       if (interval) clearInterval(interval)
+      if (endTimeout) clearTimeout(endTimeout)
     }
   }, [isRunning, totalSeconds, hasReminded, settings.reminderMinutes])
 
@@ -122,7 +131,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <div className={`app-container ${isFlashing ? 'flashing' : ''}`} 
+    <div className={`app-container ${isFlashing ? 'pre-flashing' : ''} ${endFlashing ? 'end-flashing' : ''}`} 
       style={{ 
         backgroundColor: bgColor,
         backgroundImage: settings.backgroundImage ? `url(${settings.backgroundImage})` : undefined

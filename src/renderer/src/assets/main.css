@@ -36,11 +36,30 @@ body {
 }
 
 @keyframes rapid-flash {
-  0% { background-color: #ffffff; }
-  50% { background-color: #000; }
+  0% { background-color: #ffffff!important; }
+  50% { background-color: #000!important; }
   100% { background-color: #ffffff; }
 }
 
+.pre-flashing {
+  animation: pre-alert 1s infinite;
+}
+
+.end-flashing {
+  animation: end-alert 1s infinite;
+}
+
+@keyframes pre-alert {
+  0% { background-color: #ffd70033; }
+  50% { background-color: #ffd70066; }
+  100% { background-color: #ffd70033; }
+}
+
+@keyframes end-alert {
+  0% { background-color: #ff000033; }
+  50% { background-color: #ff000066; }
+  100% { background-color: #ff000033; }
+}
 
 .timer-display {
   display: flex;
