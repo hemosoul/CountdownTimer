@@ -43,6 +43,15 @@ function createWindow(): void {
       event.preventDefault()
     }
   })
+
+  // 添加在窗口创建之后
+  ipcMain.handle('enter-fullscreen', () => {
+    mainWindow?.setFullScreen(true)
+  })
+
+  ipcMain.handle('exit-fullscreen', () => {
+    mainWindow?.setFullScreen(false)
+  })
 }
 
 // This method will be called when Electron has finished

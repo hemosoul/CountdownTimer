@@ -42,6 +42,7 @@ function App(): JSX.Element {
   const beepSound = useRef(new Audio(beepUrl)).current
   const endBeepSound = useRef(new Audio(endBeepUrl)).current
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   useEffect(() => {
     const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
@@ -59,7 +60,7 @@ function App(): JSX.Element {
           const newSeconds = prev - 1
           
           // 新增结束提醒逻辑
-          if (newSeconds === 5) {
+          if (newSeconds === 6) {
             setEndFlashing(true)
             endBeepSound.play().catch(e => console.error("结束提示音播放失败:", e));
             endTimeout = setTimeout(() => {
@@ -168,6 +169,15 @@ function App(): JSX.Element {
     }
   }
 
+  const toggleFullscreen = async () => {
+    if (isFullscreen) {
+      await window.electron.ipcRenderer.invoke('exit-fullscreen')
+    } else {
+      await window.electron.ipcRenderer.invoke('enter-fullscreen')
+    }
+    setIsFullscreen(!isFullscreen)
+  }
+
   return (
     <div className={`app-container ${isFlashing ? 'pre-flashing' : ''} ${endFlashing ? 'end-flashing' : ''}`} 
       style={{ 
@@ -219,6 +229,16 @@ function App(): JSX.Element {
             <path d="M12.2 3a9 9 0 0 0-.9 2 7 7 0 0 1 5.9 5.9 9 9 0 0 0 2-.9 7 7 0 0 0-7 7 9 9 0 0 0 .9 2 7 7 0 0 1-5.9 5.9 9 9 0 0 0-2-.9 7 7 0 0 0-7 7 9 9 0 0 0 2 .9 7 7 0 0 1 5.9-5.9 9 9 0 0 0 2 .9 7 7 0 0 0 7-7 9 9 0 0 0-.9-2 7 7 0 0 1 5.9-5.9 9 9 0 0 0 .9 2 7 7 0 0 0-7-7z"/>
           </svg>
           设置
+        </button>
+        <button className="btn-icon-text" onClick={toggleFullscreen}>
+          <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            {isFullscreen ? (
+              <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
+            ) : (
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18-5v3a2 2 0 0 1-2 2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            )}
+          </svg>
+          {isFullscreen ? '退出全屏' : '全屏'}
         </button>
       </div>
       
