@@ -31,6 +31,8 @@ function App(): JSX.Element {
     localStorage.setItem('timerSettings', JSON.stringify(defaultSettings))
     return defaultSettings
   })
+  const [isFlashing, setIsFlashing] = useState(false)
+  const [hasReminded, setHasReminded] = useState(false)
 
   useEffect(() => {
     const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
@@ -43,18 +45,30 @@ function App(): JSX.Element {
     
     if (isRunning && totalSeconds > 0) {
       interval = setInterval(() => {
-        setTotalSeconds(prev => prev - 1)
+        setTotalSeconds(prev => {
+          const newSeconds = prev - 1
+          
+          // 新增提醒逻辑
+          const reminderSeconds = settings.reminderMinutes * 60
+          if (newSeconds === reminderSeconds && !hasReminded) {
+            setIsFlashing(true)
+            setHasReminded(true)
+            setTimeout(() => setIsFlashing(false), 3000) // 3秒后停止闪烁
+          }
+          
+          return newSeconds
+        })
         setTime(secondsToTime(totalSeconds - 1))
       }, 1000)
     } else if (totalSeconds === 0) {
       setIsRunning(false)
-      // 添加提醒逻辑
+      setHasReminded(false) // 重置提醒状态
     }
 
     return () => {
       if (interval) clearInterval(interval)
     }
-  }, [isRunning, totalSeconds])
+  }, [isRunning, totalSeconds, hasReminded, settings.reminderMinutes])
 
   const secondsToTime = (secs: number) => {
     const hours = Math.floor(secs / 3600)
@@ -108,10 +122,11 @@ function App(): JSX.Element {
   }
 
   return (
-    <div className="app-container" style={{ 
-      backgroundColor: bgColor,
-      backgroundImage: settings.backgroundImage ? `url(${settings.backgroundImage})` : undefined
-    }}>
+    <div className={`app-container ${isFlashing ? 'flashing' : ''}`} 
+      style={{ 
+        backgroundColor: bgColor,
+        backgroundImage: settings.backgroundImage ? `url(${settings.backgroundImage})` : undefined
+      }}>
       <div className="timer-display" onClick={() => setIsDrawerOpen(false)}>
         <div className="time-block">
           <span className="time-number">{String(time.hours).padStart(2, '0')}</span>

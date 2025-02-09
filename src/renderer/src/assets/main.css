@@ -31,6 +31,17 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
+.flashing {
+  animation: rapid-flash 1s steps(1, end) infinite;
+}
+
+@keyframes rapid-flash {
+  0% { background-color: #ffffff; }
+  50% { background-color: #000; }
+  100% { background-color: #ffffff; }
+}
+
+
 .timer-display {
   display: flex;
   gap: 2rem;
