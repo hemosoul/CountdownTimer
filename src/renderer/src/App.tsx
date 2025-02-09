@@ -138,9 +138,11 @@ function App(): JSX.Element {
     setEndFlashing(false)
   }
 
-  const changeBackground = () => {
-    const randomColor = `#${Math.floor(Math.random()*16777215).toString(16)}`
-    setBgColor(randomColor)
+  const changeBackground = (color?: string) => {
+    const selectedColor = color || `#${Math.floor(Math.random()*16777215).toString(16)}`
+    setBgColor(selectedColor)
+    // 选择纯色时清除背景图片
+    setSettings(prev => ({...prev, backgroundImage: null}))
   }
 
   const setting = () => {
@@ -243,7 +245,18 @@ function App(): JSX.Element {
           </div>
 
           <div className="setting-group">
-            <button onClick={changeBackground}>更换背景</button>
+            <button onClick={() => changeBackground()}>随机颜色</button>
+            <div className="color-palette">
+              {['#1a1a1a', '#2d2d2d', '#383838', '#1e3a5f', '#234947', '#4a2c40'].map((color) => (
+                <button
+                  key={color}
+                  className="color-swatch"
+                  style={{ backgroundColor: color }}
+                  onClick={() => changeBackground(color)}
+                  title={`颜色值：${color}`}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="setting-group">
