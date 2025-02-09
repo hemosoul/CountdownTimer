@@ -264,11 +264,19 @@ function App(): JSX.Element {
 
           <div className="setting-group">
             <label>背景图片</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleBackgroundImageChange}
-            />
+            <div className="custom-file-input">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleBackgroundImageChange}
+                id="background-upload"
+                className="visually-hidden"
+              />
+              <label htmlFor="background-upload" className="upload-button">
+                <span className="button-text">选择图片</span>
+                <span className="file-name">{settings.backgroundImage ? '已选择' : '未选择'}</span>
+              </label>
+            </div>
           </div>
 
           <div className="setting-group">
