@@ -50,15 +50,15 @@ body {
 }
 
 @keyframes pre-alert {
-  0% { background-color: #ffd70033; }
-  50% { background-color: #ffd70066; }
-  100% { background-color: #ffd70033; }
+  0% { background-color: #ffd900a6; }
+  50% { background-color: #ff000066; }
+  100% { background-color: #ffd900ad; }
 }
 
 @keyframes end-alert {
-  0% { background-color: #ff000033; }
+  0% { background-color: #ff0000a8; }
   50% { background-color: #ff000066; }
-  100% { background-color: #ff000033; }
+  100% { background-color: #ff000077; }
 }
 
 .timer-display {

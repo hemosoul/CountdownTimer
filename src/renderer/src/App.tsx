@@ -51,7 +51,7 @@ function App(): JSX.Element {
           const newSeconds = prev - 1
           
           // 新增结束提醒逻辑
-          if (newSeconds === 0) {
+          if (newSeconds === 5) {
             setEndFlashing(true)
             endTimeout = setTimeout(() => setEndFlashing(false), 3000)
           }
