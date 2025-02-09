@@ -97,7 +97,7 @@ function App(): JSX.Element {
       backgroundColor: bgColor,
       backgroundImage: settings.backgroundImage ? `url(${settings.backgroundImage})` : undefined
     }}>
-      <div className="timer-display">
+      <div className="timer-display" onClick={() => setIsDrawerOpen(false)}>
         <div className="time-block">
           <span className="time-number">{String(time.hours).padStart(2, '0')}</span>
           <span className="time-label">小时</span>
@@ -114,8 +114,7 @@ function App(): JSX.Element {
       <div className="controls">
         <button onClick={startTimer}>开始</button>
         <button onClick={pauseTimer}>暂停</button>
-        <button onClick={resetTimer}>重置</button>
-        <button onClick={changeBackground}>更换背景</button>
+        <button onClick={resetTimer}>重置</button>  
         <button onClick={setting}>设置</button>
       </div>
       
@@ -160,6 +159,14 @@ function App(): JSX.Element {
             /> 分钟
           </div>
 
+
+
+          <div className="setting-group">
+            <button onClick={changeBackground}>更换背景</button>
+          </div>
+
+
+
           <div className="setting-group">
             <label>背景图片</label>
             <input
@@ -170,7 +177,7 @@ function App(): JSX.Element {
           </div>
 
           <button onClick={saveSettings}>保存</button>
-          <button onClick={() => setIsDrawerOpen(false)}>取消</button>
+          <button onClick={() => setIsDrawerOpen(false)}>关闭</button>
         </div>
       </div>
     </div>
