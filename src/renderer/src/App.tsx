@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './assets/main.css'
+import beepUrl from '../public/tip.mp3'
+import endBeepUrl from '../public/timeup.mp3'
+
 
 interface Settings {
   hours: number
@@ -34,7 +37,8 @@ function App(): JSX.Element {
   const [isFlashing, setIsFlashing] = useState(false)
   const [endFlashing, setEndFlashing] = useState(false)
   const [hasReminded, setHasReminded] = useState(false)
-  const beepSound = new Audio('/beep.mp3'); // 开发环境需要将音频文件放在public目录下
+  const beepSound = useRef(new Audio(beepUrl)).current
+  const endBeepSound = useRef(new Audio(endBeepUrl)).current
 
   useEffect(() => {
     const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
@@ -54,7 +58,10 @@ function App(): JSX.Element {
           // 新增结束提醒逻辑
           if (newSeconds === 5) {
             setEndFlashing(true)
-            endTimeout = setTimeout(() => setEndFlashing(false), 3000)
+            endBeepSound.play().catch(e => console.error("结束提示音播放失败:", e));
+            endTimeout = setTimeout(() => {
+              setEndFlashing(false)
+            }, 5000)
           }
           
           // 原有提前提醒逻辑
