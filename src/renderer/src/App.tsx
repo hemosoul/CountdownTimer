@@ -34,6 +34,7 @@ function App(): JSX.Element {
   const [isFlashing, setIsFlashing] = useState(false)
   const [endFlashing, setEndFlashing] = useState(false)
   const [hasReminded, setHasReminded] = useState(false)
+  const beepSound = new Audio('/beep.mp3'); // 开发环境需要将音频文件放在public目录下
 
   useEffect(() => {
     const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
@@ -59,9 +60,15 @@ function App(): JSX.Element {
           // 原有提前提醒逻辑
           const reminderSeconds = settings.reminderMinutes * 60
           if (newSeconds === reminderSeconds && !hasReminded) {
+            
             setIsFlashing(true)
             setHasReminded(true)
-            setTimeout(() => setIsFlashing(false), 3000)
+            beepSound.play().catch(e => console.error("音频播放失败:", e));
+            setTimeout(() => {
+                setIsFlashing(false)
+                beepSound.pause();
+                beepSound.currentTime = 0;
+            }, 3000)
           }
           
           return newSeconds
