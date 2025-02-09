@@ -39,6 +39,7 @@ function App(): JSX.Element {
   const [hasReminded, setHasReminded] = useState(false)
   const beepSound = useRef(new Audio(beepUrl)).current
   const endBeepSound = useRef(new Audio(endBeepUrl)).current
+  const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
     const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
@@ -92,6 +93,13 @@ function App(): JSX.Element {
       if (endTimeout) clearTimeout(endTimeout)
     }
   }, [isRunning, totalSeconds, hasReminded, settings.reminderMinutes])
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const secondsToTime = (secs: number) => {
     const hours = Math.floor(secs / 3600)
@@ -162,6 +170,9 @@ function App(): JSX.Element {
         backgroundColor: bgColor,
         backgroundImage: settings.backgroundImage ? `url(${settings.backgroundImage})` : undefined
       }}>
+      <div className="current-date">
+        {currentTime.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </div>
       <div className="timer-display" onClick={() => setIsDrawerOpen(false)}>
         <div className="time-block">
           <span className="time-number">{String(time.hours).padStart(2, '0')}</span>
