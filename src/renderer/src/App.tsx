@@ -70,14 +70,14 @@ function App(): JSX.Element {
   }
 
   const setting = () => {
-    setIsDrawerOpen(true)
+    setIsDrawerOpen(prev => !prev)
   }
 
   const saveSettings = () => {
     const totalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
     setTotalSeconds(totalSeconds)
+    setTime(secondsToTime(totalSeconds))
     setIsDrawerOpen(false)
-    // 保存设置到本地
     localStorage.setItem('timerSettings', JSON.stringify(settings))
   }
 
@@ -112,8 +112,9 @@ function App(): JSX.Element {
         </div>
       </div>
       <div className="controls">
-        <button onClick={startTimer}>开始</button>
-        <button onClick={pauseTimer}>暂停</button>
+        <button onClick={isRunning ? pauseTimer : startTimer}>
+          {isRunning ? '暂停' : '开始'}
+        </button>
         <button onClick={resetTimer}>重置</button>  
         <button onClick={setting}>设置</button>
       </div>

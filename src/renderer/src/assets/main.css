@@ -19,8 +19,6 @@ body {
   margin-bottom: 80px;
 }
 
-
-
 .app-container {
   width: 100vw;
   height: 100vh;
@@ -43,10 +41,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 5rem;
+  min-width: 240px;
+  margin: 0 2rem;
+  text-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
 
 .time-number {
-  font-size: 6rem;
+  font-size: 5em;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.1);
   padding: 0.5rem 1rem;
@@ -54,6 +56,7 @@ body {
   margin-bottom: 0.5rem;
   position: relative;
   overflow: hidden;
+  line-height: 0.9;
 }
 
 .time-number::before {
@@ -73,8 +76,9 @@ body {
 }
 
 .time-label {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.7);
+  margin-top: 1rem;
 }
 
 .controls {
