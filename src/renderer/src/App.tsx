@@ -156,16 +156,13 @@ function App(): JSX.Element {
               min="1"
               value={settings.reminderMinutes}
               onChange={(e) => setSettings({...settings, reminderMinutes: +e.target.value})}
+              className="reminder-input"
             /> 分钟
           </div>
-
-
 
           <div className="setting-group">
             <button onClick={changeBackground}>更换背景</button>
           </div>
-
-
 
           <div className="setting-group">
             <label>背景图片</label>
