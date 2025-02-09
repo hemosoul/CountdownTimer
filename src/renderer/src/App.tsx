@@ -172,7 +172,10 @@ function App(): JSX.Element {
     <div className={`app-container ${isFlashing ? 'pre-flashing' : ''} ${endFlashing ? 'end-flashing' : ''}`} 
       style={{ 
         backgroundColor: bgColor,
-        backgroundImage: settings.backgroundImage ? `url(${settings.backgroundImage})` : undefined
+        backgroundImage: settings.backgroundImage ? `url(${settings.backgroundImage})` : undefined,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
       }}>
       <div className="title-header">
         {settings.title}
