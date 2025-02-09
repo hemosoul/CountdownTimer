@@ -5,6 +5,7 @@ import endBeepUrl from '../public/timeup.mp3'
 
 
 interface Settings {
+  title: string
   hours: number
   minutes: number
   seconds: number
@@ -25,6 +26,7 @@ function App(): JSX.Element {
     }
     // 默认值：15分钟倒计时，2分钟提醒
     const defaultSettings = {
+      title: '',
       hours: 0,
       minutes: 15,
       seconds: 0,
@@ -170,6 +172,9 @@ function App(): JSX.Element {
         backgroundColor: bgColor,
         backgroundImage: settings.backgroundImage ? `url(${settings.backgroundImage})` : undefined
       }}>
+      <div className="title-header">
+        {settings.title}
+      </div>
       <div className="current-date">
         {currentTime.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
       </div>
@@ -247,6 +252,17 @@ function App(): JSX.Element {
               type="file"
               accept="image/*"
               onChange={handleBackgroundImageChange}
+            />
+          </div>
+
+          <div className="setting-group">
+            <label>标题设置</label>
+            <input
+              type="text"
+              className="reminder-input"
+              value={settings.title}
+              onChange={(e) => setSettings({...settings, title: e.target.value})}
+              placeholder="请输入标题"
             />
           </div>
 
