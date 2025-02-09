@@ -16,7 +16,6 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 80px;
 }
 
 .app-container {
@@ -113,22 +112,26 @@ body {
 }
 
 .controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   display: flex;
-  gap: 1rem;
+  gap: 12px;
+  z-index: 1000;
 }
 
 .controls button {
-  padding: 0.5rem 1rem;
-  border: none;
+  padding: 8px 16px;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .controls button:hover {
   background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 .drawer {
