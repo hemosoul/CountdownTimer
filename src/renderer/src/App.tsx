@@ -15,13 +15,28 @@ function App(): JSX.Element {
   const [totalSeconds, setTotalSeconds] = useState(0)
   const [bgColor, setBgColor] = useState('#1a1a1a')
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [settings, setSettings] = useState<Settings>({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    reminderMinutes: 5,
-    backgroundImage: null
+  const [settings, setSettings] = useState<Settings>(() => {
+    const savedSettings = localStorage.getItem('timerSettings')
+    if (savedSettings) {
+      return JSON.parse(savedSettings)
+    }
+    // 默认值：15分钟倒计时，2分钟提醒
+    const defaultSettings = {
+      hours: 0,
+      minutes: 15,
+      seconds: 0,
+      reminderMinutes: 2,
+      backgroundImage: null
+    }
+    localStorage.setItem('timerSettings', JSON.stringify(defaultSettings))
+    return defaultSettings
   })
+
+  useEffect(() => {
+    const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
+    setTotalSeconds(initialTotalSeconds)
+    setTime(secondsToTime(initialTotalSeconds))
+  }, []) // 空依赖数组表示只在组件加载时执行
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null
