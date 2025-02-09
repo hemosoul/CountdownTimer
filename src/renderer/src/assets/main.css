@@ -326,3 +326,14 @@ body {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.btn-icon-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+}
+
+.btn-icon-text svg {
+  flex-shrink: 0;
+}

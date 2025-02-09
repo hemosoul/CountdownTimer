@@ -198,11 +198,28 @@ function App(): JSX.Element {
         </div>
       </div>
       <div className="controls">
-        <button onClick={isRunning ? pauseTimer : startTimer}>
+        <button className="btn-icon-text" onClick={isRunning ? pauseTimer : startTimer}>
+          <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            {isRunning ? (
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            ) : (
+              <path d="M5 3l14 9-14 9V3z"/>
+            )}
+          </svg>
           {isRunning ? '暂停' : '开始'}
         </button>
-        <button onClick={resetTimer}>重置</button>  
-        <button onClick={setting}>设置</button>
+        <button className="btn-icon-text" onClick={resetTimer}>
+          <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M20 11A8.1 8.1 0 0 0 3.5 6M3 6v4h4m-4.6 7a8.1 8.1 0 0 0 16.5-5h0a8.1 8.1 0 0 0-3.9-6.5"/>
+          </svg>
+          重置
+        </button>  
+        <button className="btn-icon-text" onClick={setting}>
+          <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12.2 3a9 9 0 0 0-.9 2 7 7 0 0 1 5.9 5.9 9 9 0 0 0 2-.9 7 7 0 0 0-7 7 9 9 0 0 0 .9 2 7 7 0 0 1-5.9 5.9 9 9 0 0 0-2-.9 7 7 0 0 0-7 7 9 9 0 0 0 2 .9 7 7 0 0 1 5.9-5.9 9 9 0 0 0 2 .9 7 7 0 0 0 7-7 9 9 0 0 0-.9-2 7 7 0 0 1 5.9-5.9 9 9 0 0 0 .9 2 7 7 0 0 0-7-7z"/>
+          </svg>
+          设置
+        </button>
       </div>
       
       {/* Drawer Component */}
