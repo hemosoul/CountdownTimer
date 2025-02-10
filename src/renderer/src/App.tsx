@@ -209,7 +209,7 @@ function App(): JSX.Element {
       </div>
       <div className="controls">
         <button className="btn-icon-text" onClick={isRunning ? pauseTimer : startTimer}>
-          <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             {isRunning ? (
               <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
             ) : (
@@ -219,25 +219,21 @@ function App(): JSX.Element {
           {isRunning ? '暂停' : '开始'}
         </button>
         <button className="btn-icon-text" onClick={resetTimer}>
-          <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M20 11A8.1 8.1 0 0 0 3.5 6M3 6v4h4m-4.6 7a8.1 8.1 0 0 0 16.5-5h0a8.1 8.1 0 0 0-3.9-6.5"/>
-          </svg>
+          <svg fill="#ffffff" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M960 0v112.941c467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059-467.125 0-847.059-379.934-847.059-847.059 0-267.106 126.607-515.915 338.824-675.727v393.374h112.94V112.941H0v112.941h342.89C127.058 407.38 0 674.711 0 960c0 529.355 430.645 960 960 960s960-430.645 960-960S1489.355 0 960 0" fill-rule="evenodd"></path> </g></svg>
           重置
         </button>  
         <button className="btn-icon-text" onClick={setting}>
-          <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12.2 3a9 9 0 0 0-.9 2 7 7 0 0 1 5.9 5.9 9 9 0 0 0 2-.9 7 7 0 0 0-7 7 9 9 0 0 0 .9 2 7 7 0 0 1-5.9 5.9 9 9 0 0 0-2-.9 7 7 0 0 0-7 7 9 9 0 0 0 2 .9 7 7 0 0 1 5.9-5.9 9 9 0 0 0 2 .9 7 7 0 0 0 7-7 9 9 0 0 0-.9-2 7 7 0 0 1 5.9-5.9 9 9 0 0 0 .9 2 7 7 0 0 0-7-7z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M9.75195 12.0128C9.75175 11.0587 10.4087 10.2372 11.3211 10.0509C12.2335 9.86458 13.1472 10.3652 13.5034 11.2467C13.8595 12.1282 13.559 13.1449 12.7856 13.6752C12.0121 14.2054 10.9812 14.1014 10.3233 13.4268C9.95757 13.0518 9.75206 12.5432 9.75195 12.0128Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M10.3077 5.46781C10.2943 4.94809 10.557 4.46185 10.9937 4.19793C11.4305 3.93402 11.9725 3.93402 12.4092 4.19793C12.8459 4.46185 13.1086 4.94809 13.0952 5.46781V6.18481C14.1532 6.45066 15.1177 7.01454 15.8798 7.81281L16.4346 7.47881C16.7552 7.28632 17.1379 7.23446 17.4962 7.33495C17.8545 7.43544 18.1583 7.6798 18.3388 8.01281C18.7238 8.70718 18.4973 9.58984 17.8288 9.99981L17.3121 10.3108C17.6296 11.4207 17.6296 12.6009 17.3121 13.7108L17.8288 14.0218C18.4996 14.4319 18.7264 15.3175 18.3388 16.0128C18.1579 16.3455 17.8541 16.5894 17.4958 16.6895C17.1375 16.7896 16.7549 16.7375 16.4346 16.5448L15.8798 16.2108C15.1177 17.01 14.1528 17.5746 13.0942 17.8408V18.5578C13.1076 19.0775 12.845 19.5638 12.4082 19.8277C11.9715 20.0916 11.4295 20.0916 10.9927 19.8277C10.556 19.5638 10.2933 19.0775 10.3067 18.5578V17.8408C9.24871 17.575 8.28422 17.0111 7.52212 16.2128L6.96735 16.5468C6.64684 16.739 6.26438 16.7907 5.90629 16.6902C5.5482 16.5897 5.24464 16.3455 5.06415 16.0128C4.67911 15.3184 4.90563 14.4358 5.57407 14.0258L6.09082 13.7148C5.77329 12.6049 5.77329 11.4247 6.09082 10.3148L5.57407 10.0038C4.90333 9.59369 4.67651 8.70808 5.06415 8.01281C5.24498 7.68014 5.54885 7.43621 5.90715 7.3361C6.26546 7.236 6.64797 7.28816 6.96832 7.48081L7.5231 7.81481C8.28484 7.01545 9.24936 6.4505 10.3077 6.18381V5.46781Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
           设置
         </button>
         <button className="btn-icon-text" onClick={toggleFullscreen}>
-          <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+     
             {isFullscreen ? (
-              <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
-            ) : (
-              <path d="M8 3H5a2 2 0 0 0-2 2v3m18-5v3a2 2 0 0 1-2 2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+              <svg fill="#ffffff" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M391 240.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L200 146.3a8.03 8.03 0 0 0-11.3 0l-42.4 42.3a8.03 8.03 0 0 0 0 11.3L280 333.6l-43.9 43.9a8.01 8.01 0 0 0 4.7 13.6L401 410c5.1.6 9.5-3.7 8.9-8.9L391 240.9zm10.1 373.2L240.8 633c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L146.3 824a8.03 8.03 0 0 0 0 11.3l42.4 42.3c3.1 3.1 8.2 3.1 11.3 0L333.7 744l43.7 43.7A8.01 8.01 0 0 0 391 783l18.9-160.1c.6-5.1-3.7-9.4-8.8-8.8zm221.8-204.2L783.2 391c6.6-.8 9.4-8.9 4.7-13.6L744 333.6 877.7 200c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.3a8.03 8.03 0 0 0-11.3 0L690.3 279.9l-43.7-43.7a8.01 8.01 0 0 0-13.6 4.7L614.1 401c-.6 5.2 3.7 9.5 8.8 8.9zM744 690.4l43.9-43.9a8.01 8.01 0 0 0-4.7-13.6L623 614c-5.1-.6-9.5 3.7-8.9 8.9L633 783.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L824 877.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L744 690.4z"></path> </g></svg>
+              ) : (
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.00002 3.99997H4.00004L4 8.99999M20 8.99999V4L15 3.99997M15 20H20L20 15M4 15L4 20L9.00002 20" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>   
             )}
-          </svg>
+          
           {isFullscreen ? '退出全屏' : '全屏'}
         </button>
       </div>
