@@ -43,6 +43,9 @@ function App(): JSX.Element {
   const endBeepSound = useRef(new Audio(endBeepUrl)).current
   const [currentTime, setCurrentTime] = useState(new Date())
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStartPos = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
     const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
@@ -103,6 +106,41 @@ function App(): JSX.Element {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const savedPos = localStorage.getItem('timerPosition');
+    if (savedPos) setPosition(JSON.parse(savedPos));
+  }, []);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    dragStartPos.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    };
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isDragging) {
+      const newX = e.clientX - dragStartPos.current.x;
+      const newY = e.clientY - dragStartPos.current.y;
+      setPosition({ x: newX, y: newY });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    localStorage.setItem('timerPosition', JSON.stringify(position));
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
 
   const secondsToTime = (secs: number) => {
     const hours = Math.floor(secs / 3600)
@@ -193,7 +231,14 @@ function App(): JSX.Element {
       <div className="current-date">
         {currentTime.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
       </div>
-      <div className="timer-display" onClick={() => setIsDrawerOpen(false)}>
+      <div 
+        className="timer-display"
+        style={{ 
+          transform: `translate(${position.x}px, ${position.y}px)`,
+          cursor: isDragging ? 'grabbing' : 'grab'
+        }}
+        onMouseDown={handleMouseDown}
+      >
         <div className="time-block">
           <span className="time-number">{String(time.hours).padStart(2, '0')}</span>
           <span className="time-label">小时</span>
