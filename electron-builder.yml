@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: projecttimer
+productName: countdowntimer
 directories:
   buildResources: build
 files:
@@ -14,10 +14,9 @@ asarUnpack:
 win:
   executableName: countdowntimer
   icon: build/icon.ico
-  target: appx
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
-  shortcutName: ${productName}
+  shortcutName: '面试倒计时'
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:
@@ -45,11 +44,3 @@ publish:
   url: https://example.com/auto-updates
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
-appx:
-  applicationId: ProjectTimer
-  displayName: 面试倒计时
-  publisher: CN=856E5D3D-D022-4222-9D8B-7BF67799B973
-  publisherDisplayName: "wangmeng88"
-  identityName: wangmeng88.67720BBA2CAC
-  backgroundColor: "#202020"
-  artifactName: ${name}-${version}-appx.${ext}
