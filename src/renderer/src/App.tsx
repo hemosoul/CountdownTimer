@@ -46,7 +46,6 @@ function App(): JSX.Element {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const dragStartPos = useRef({ x: 0, y: 0 })
-  const [isMaximized, setIsMaximized] = useState(false)
 
   useEffect(() => {
     const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
