@@ -348,3 +348,69 @@ body {
   width: 24px;
   height: 24px;
 }
+
+/* 新增标题栏样式 */
+.custom-titlebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: hsla(240, 5%, 8%, 0.199);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-app-region: drag;
+  z-index: 1000;
+  border-bottom: 1px solid hsl(240, 3.7%, 15.9%);
+}
+
+.drag-region {
+  -webkit-app-region: drag;
+  padding-left: 12px;
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.app-title {
+  color: hsl(0, 0%, 80%);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.window-controls {
+  display: flex;
+  height: 100%;
+  -webkit-app-region: no-drag;
+}
+
+.control-button {
+  width: 46px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: hsl(0, 0%, 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.control-button:hover {
+  background: hsl(240, 5%, 16%);
+}
+
+.control-button.close:hover {
+  background: #e81123;
+  color: white;
+}
+
+.control-button svg {
+  transition: transform 0.2s ease;
+}
+
+.control-button:active svg {
+  transform: scale(0.9);
+}

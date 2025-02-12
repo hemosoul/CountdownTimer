@@ -46,6 +46,7 @@ function App(): JSX.Element {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const dragStartPos = useRef({ x: 0, y: 0 })
+  const [isMaximized, setIsMaximized] = useState(false)
 
   useEffect(() => {
     const initialTotalSeconds = settings.hours * 3600 + settings.minutes * 60 + settings.seconds
@@ -216,6 +217,11 @@ function App(): JSX.Element {
     setIsFullscreen(!isFullscreen)
   }
 
+  const minimizeWindow = () => window.electron.ipcRenderer.send('minimize-window')
+  const maximizeWindow = () => window.electron.ipcRenderer.send('maximize-window')
+  const unmaximizeWindow = () => window.electron.ipcRenderer.send('unmaximize-window')
+  const closeWindow = () => window.electron.ipcRenderer.send('close-window')
+
   return (
     <div className={`app-container ${isFlashing ? 'pre-flashing' : ''} ${endFlashing ? 'end-flashing' : ''}`} 
       style={{ 
@@ -225,6 +231,34 @@ function App(): JSX.Element {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       }}>
+      <div className="custom-titlebar" onDoubleClick={toggleFullscreen}>
+        <div className="drag-region">
+          <span className="app-title">{settings.title || '全屏倒计时器'}</span>
+        </div>
+        <div className="window-controls">
+          <button className="control-button" onClick={minimizeWindow}>
+            <svg width="12" height="12" viewBox="0 0 12 12">
+              <path fill="currentColor" d="M11 5.5H1v1h10v-1z"/>
+            </svg>
+          </button>
+          <button className="control-button" onClick={toggleFullscreen}>
+            {isMaximized ? (
+              <svg width="12" height="12" viewBox="0 0 12 12">
+                <path fill="currentColor" d="M2 2v8h8V2H2zm1 1h6v6H3V3zm1 2h4v1H4V5zm0 2h4v1H4V7z"/>
+              </svg>
+            ) : (
+              <svg width="12" height="12" viewBox="0 0 12 12">
+                <path fill="currentColor" d="M2 2h8v8H2V2zm1 1v6h6V3H3z"/>
+              </svg>
+            )}
+          </button>
+          <button className="control-button close" onClick={closeWindow}>
+            <svg width="12" height="12" viewBox="0 0 12 12">
+              <path fill="currentColor" d="M11 1.5L10.5 1 6 5.5 1.5 1 1 1.5 5.5 6 1 10.5l.5.5L6 6.5l4.5 4.5.5-.5L6.5 6z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
       <div className="title-header">
         {settings.title}
       </div>

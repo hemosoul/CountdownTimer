@@ -7,6 +7,8 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false,
+    titleBarStyle: 'hidden',
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? {  } : {}),
@@ -51,6 +53,26 @@ function createWindow(): void {
 
   ipcMain.handle('exit-fullscreen', () => {
     mainWindow?.setFullScreen(false)
+  })
+
+  ipcMain.on('minimize-window', () => {
+    mainWindow?.minimize()
+  })
+
+  ipcMain.on('maximize-window', () => {
+    if (mainWindow?.isMaximized()) {
+      mainWindow.unmaximize()
+    } else {
+      mainWindow?.maximize()
+    }
+  })
+
+  ipcMain.on('unmaximize-window', () => {
+    mainWindow?.unmaximize()
+  })
+
+  ipcMain.on('close-window', () => {
+    mainWindow?.close()
   })
 }
 
