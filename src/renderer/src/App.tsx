@@ -162,6 +162,10 @@ function App(): JSX.Element {
 
   const resetTimer = () => {
     setIsRunning(false)
+    // 新增位置重置逻辑
+    setPosition({ x: 0, y: 0 })
+    localStorage.removeItem('timerPosition')
+    
     // 从本地存储重新加载设置
     const savedSettings = localStorage.getItem('timerSettings')
     if (savedSettings) {
