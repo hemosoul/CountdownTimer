@@ -222,8 +222,6 @@ function App(): JSX.Element {
   }
 
   const minimizeWindow = () => window.electron.ipcRenderer.send('minimize-window')
-  const maximizeWindow = () => window.electron.ipcRenderer.send('maximize-window')
-  const unmaximizeWindow = () => window.electron.ipcRenderer.send('unmaximize-window')
   const closeWindow = () => window.electron.ipcRenderer.send('close-window')
 
   return (
@@ -246,14 +244,10 @@ function App(): JSX.Element {
             </svg>
           </button>
           <button className="control-button" onClick={toggleFullscreen}>
-            {isMaximized ? (
-              <svg width="12" height="12" viewBox="0 0 12 12">
-                <path fill="currentColor" d="M2 2v8h8V2H2zm1 1h6v6H3V3zm1 2h4v1H4V5zm0 2h4v1H4V7z"/>
-              </svg>
+            {isFullscreen ? (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.00002 3.99998H4.00004L4 9M20 8.99999V4L15 3.99997M15 20H20L20 15M4 15L4 20L9.00002 20" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
             ) : (
-              <svg width="12" height="12" viewBox="0 0 12 12">
-                <path fill="currentColor" d="M2 2h8v8H2V2zm1 1v6h6V3H3z"/>
-              </svg>
+              <svg fill="#ffffff" height="12px" width="12px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"viewBox="0 0 492.308 492.308" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M114.279,0v114.274H0v378.034h378.039V378.029h114.269V0H114.279z M358.346,472.615H19.692V133.966h338.654V472.615z M472.615,358.337h-94.577V114.274H133.971V19.692h338.644V358.337z"></path> </g> </g> </g></svg>
             )}
           </button>
           <button className="control-button close" onClick={closeWindow}>

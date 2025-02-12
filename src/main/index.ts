@@ -59,17 +59,7 @@ function createWindow(): void {
     mainWindow?.minimize()
   })
 
-  ipcMain.on('maximize-window', () => {
-    if (mainWindow?.isMaximized()) {
-      mainWindow.unmaximize()
-    } else {
-      mainWindow?.maximize()
-    }
-  })
-
-  ipcMain.on('unmaximize-window', () => {
-    mainWindow?.unmaximize()
-  })
+  
 
   ipcMain.on('close-window', () => {
     mainWindow?.close()
