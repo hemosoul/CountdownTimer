@@ -234,7 +234,7 @@ function App(): JSX.Element {
       }}>
       <div className="custom-titlebar" onDoubleClick={toggleFullscreen}>
         <div className="drag-region">
-          <span className="app-title">{settings.title || '全屏倒计时器'}</span>
+          <span className="app-title">{settings.title || '面试倒计时器'}</span>
         </div>
         <div className="window-controls">
           <button className="control-button" onClick={minimizeWindow}>
